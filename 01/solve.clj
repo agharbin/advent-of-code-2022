@@ -1,4 +1,4 @@
-(ns advent.2022
+(ns advent.2022.01
   (:require [clojure.string :as s]))
 
 (defn solve [input]
