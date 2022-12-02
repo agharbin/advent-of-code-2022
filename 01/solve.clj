@@ -19,8 +19,7 @@
        (map parse-elf)))
 
 (defn solve-file [input]
-  (->> input
-       slurp
+  (->> (slurp input)
        parse-input
        solve
        prn))
