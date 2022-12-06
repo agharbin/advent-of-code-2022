@@ -1,4 +1,4 @@
-(ns advent.2022
+(ns advent.2022.06
   (:require
     [clojure.string :as s]))
 
@@ -8,12 +8,9 @@
   (->> input
        s/trim))
 
-(defn all-unique? [xs]
-  (= (count xs) (count (set xs))))
-
 (defn solve [input]
   (loop [i 0]
-    (if (all-unique? (subs input i (+ i size)))
+    (if (apply distinct? (subs input i (+ i size)))
       (+ i size)
       (recur (inc i)))))
 

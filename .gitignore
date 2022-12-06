@@ -2,4 +2,5 @@
 */.cpcache
 template/
 samples/
+util/
 .nrepl-port
