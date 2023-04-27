@@ -1,4 +1,4 @@
-(ns advent.2022
+(ns advent.2022.20.1
   (:require
     [clojure.string :as s]
     [clojure.set :as set]))
