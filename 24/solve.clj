@@ -56,26 +56,26 @@
        (<= 0 c)
        (< c grid-width)))
 
-(defn possible-next-states [loc blizzard-locs]
+(defn possible-next-locs [loc blizzard-locs]
   (->> all-moves ; offsets from current position
        (map #(mapv + loc %)) ; neighbor locations
        (filter not-wall?)
        (filter in-grid?)
        (filter (complement blizzard-locs))))
 
-(defn bfs [start-state goal-state start-time]
-  (loop [q (conj clojure.lang.PersistentQueue/EMPTY [start-time start-state])
+(defn bfs [start-loc goal-loc start-time]
+  (loop [q (conj clojure.lang.PersistentQueue/EMPTY [start-time start-loc])
          seen-states #{}]
     (when (seq q)
-      (let [[dist state :as state-time] (peek q)]
+      (let [[time-passed loc :as state] (peek q)]
         (cond
-          (= goal-state state) dist
-          (seen-states state-time) (recur (pop q) seen-states)
+          (= loc goal-loc) time-passed
+          (seen-states state) (recur (pop q) seen-states)
           :else
-            (let [candidates (possible-next-states state (find-blizzard-locs (inc dist)))]
+            (let [candidates (possible-next-locs loc (find-blizzard-locs (inc time-passed)))]
               (recur
-                (into (pop q) (for [s candidates] [(inc dist) s]))
-                (conj seen-states state-time))))))))
+                (into (pop q) (for [c candidates] [(inc time-passed) c]))
+                (conj seen-states state))))))))
 
 ;; Solutions
 
